@@ -137,7 +137,7 @@ class Paginator
 
     protected function defaultRequestFunction()
     {
-        return filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT);
+        return filter_input(INPUT_GET, $this->requestParameter, FILTER_VALIDATE_INT);
     }
 
     protected function computeCurrentPage()

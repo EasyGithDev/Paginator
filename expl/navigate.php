@@ -2,7 +2,8 @@
 require __DIR__ . '/../autoload.php';
 
 $nav = new Paginator(100);
-$nav->setPresenterClass(BoostrapPresenter::class);
+$nav->setPresenterClass(BoostrapPresenter::class)
+    ->setDisplay(Paginator::DISPLAY_FIRST_LAST | Paginator::DISPLAY_PREV_NEXT);
 ?>
 <html>
 
@@ -20,8 +21,19 @@ $nav->setPresenterClass(BoostrapPresenter::class);
 
 <body>
 
-    <div class="container d-flex justify-content-center">
-        <?= $nav ?>
+    <div class="container d-flex justify-content-center"">
+        <div class="row align-items-center">
+
+        <div class="col">
+            <?= $nav ?>
+        </div>
+        <div class="col">
+            <?= $nav->getCurrentPage() ?>
+            /
+            <?= $nav->getNbPage() ?>&nbsp;
+            pages
+        </div>
+    </div>
     </div>
 
 </body>
