@@ -37,8 +37,12 @@ class Paginator
     /** Display type */
     protected $displayType;
 
+    /** Request parameters */
     protected $requestFunction;
     protected $requestParameter;
+
+    /** Number of pages to display */
+    protected $maxPageToDisplay;
 
     function __construct(int $nbResults, int $resultsPerPage = 10)
     {
@@ -183,7 +187,15 @@ class Paginator
 
         // list
         if ($this->checkDisplay(self::DISPLAY_LIST)) {
-            for ($i = 1; $i <= $this->nbPage; $i++) {
+
+            $start = 1;
+            $end = $this->nbPage;
+            if (!is_null($this->maxPageToDisplay)) {
+                $start = ($this->currentPage > $this->maxPageToDisplay) ? ($this->currentPage - $this->maxPageToDisplay + 1) : 1;
+                $end = ($this->maxPageToDisplay < $this->nbPage) ? ($start + $this->maxPageToDisplay - 1) : $this->nbPage;
+            }
+
+            for ($i = $start; $i <= $end; $i++) {
                 if ($i == $this->currentPage) {
                     $strNav .= $this->presenter->listDisabled($i);
                 } else {
