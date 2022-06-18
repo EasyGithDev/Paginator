@@ -118,6 +118,7 @@ class Pagination
 
         $strNav = '';
 
+        // User is on the first page
         if ($this->currentPage > 1) {
             // start
             if ($this->checkDisplay(self::DISPLAY_FIRST)) {
@@ -140,8 +141,10 @@ class Pagination
                 }
             }
         }
+
+        // User is on the last page
         if ($this->currentPage < $this->nbPage) {
-            // 
+            // next
             if ($this->checkDisplay(self::DISPLAY_NEXT)) {
                 $strNav .= $this->presenter->next();
             }
