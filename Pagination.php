@@ -6,6 +6,9 @@ require 'BoostrapPresenter.php';
 class Pagination
 {
 
+    /**
+     * Constant for display
+     */
     const DISPLAY_FIRST = 1;
     const DISPLAY_PREV = 2;
     const DISPLAY_LIST = 4;
@@ -16,12 +19,25 @@ class Pagination
     const DISPLAY_PREV_NEXT = self::DISPLAY_PREV | self::DISPLAY_NEXT;
     const DISPLAY_ALL = self::DISPLAY_FIRST_LAST | self::DISPLAY_PREV_NEXT | self::DISPLAY_LIST;
 
+    /**
+     * Presenter
+     */
     protected $presenterClass;
     protected $presenter;
+
+    /** Total results */
     protected $nbResults;
+
+    /** Result per page */
     protected $resultsPerPage;
+
+    /** Current page */
     protected $currentPage;
+
+    /** Numbre of pages */
     protected $nbPage;
+
+    /** Display type */
     protected $display;
 
     function __construct(int $nbResults, int $resultsPerPage = 10)
@@ -80,17 +96,27 @@ class Pagination
         return false;
     }
 
+    protected function computeCurrentPage()
+    {
+        $currentPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT);
+        $this->currentPage = ($currentPage) ? $currentPage : 1;
+    }
+
+    protected function computeNbPage()
+    {
+        $this->nbPage = $this->nbResults / $this->resultsPerPage;
+    }
+
     function __toString(): string
     {
         if (!$this->presenter) {
             $this->applyPresenter();
         }
 
-        $strNav = '';
-        $currentPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT);
-        $this->currentPage = ($currentPage) ? $currentPage : 1;
-        $this->nbPage = $this->nbResults / $this->resultsPerPage;
+        $this->computeCurrentPage();
+        $this->computeNbPage();
 
+        $strNav = '';
 
         if ($this->currentPage > 1) {
             // start
