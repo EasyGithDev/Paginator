@@ -89,6 +89,12 @@ class Paginator
         return  $this->getNbPage();
     }
 
+    public function setMaxPageToDisplay(int $maxPageToDisplay): Paginator
+    {
+        $this->maxPageToDisplay = $maxPageToDisplay;
+        return $this;
+    }
+
     public function setRequestParameter(string $requestParameter): Paginator
     {
         $this->requestParameter = $requestParameter;
