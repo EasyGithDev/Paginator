@@ -4,7 +4,7 @@ class Paginator
 {
 
     /**
-     * Constant for display
+     * Constant for display type
      */
     const DISPLAY_FIRST = 1;
     const DISPLAY_PREV = 2;
@@ -35,14 +35,14 @@ class Paginator
     protected $nbPage;
 
     /** Display type */
-    protected $display;
+    protected $displayType;
 
     function __construct(int $nbResults, int $resultsPerPage = 10)
     {
         $this->nbResults = $nbResults;
         $this->resultsPerPage = $resultsPerPage;
         $this->presenterClass = DefaultPresenter::class;
-        $this->display = self::DISPLAY_ALL;
+        $this->displayType = self::DISPLAY_ALL;
     }
 
     public function getCurrentPage(): int
@@ -79,7 +79,7 @@ class Paginator
 
     public function setDisplay(int $display)
     {
-        $this->display = $display;
+        $this->displayType = $display;
         return $this;
     }
 
@@ -97,13 +97,13 @@ class Paginator
 
 
         // printf('  val=' .  '%0' . (PHP_INT_SIZE * 8) . "b<br>", 
-        // $this->display);
+        // $this->displayType);
 
         // printf('  val=' .  '%0' . (PHP_INT_SIZE * 8) . "b<br>", 
-        // $component & $this->display);
+        // $component & $this->displayType);
 
 
-        if (($component & $this->display) == $component) {
+        if (($component & $this->displayType) == $component) {
             return true;
         }
         return false;
