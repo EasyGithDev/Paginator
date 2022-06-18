@@ -2,8 +2,7 @@
 require __DIR__ . '/../autoload.php';
 
 $nav = new Paginator(100);
-$nav->setPresenterClass(BoostrapPresenter::class)
-    ->setDisplay(Paginator::DISPLAY_FIRST_LAST | Paginator::DISPLAY_LIST);
+$nav->setPresenterClass(BoostrapPresenter::class);
 ?>
 <html>
 

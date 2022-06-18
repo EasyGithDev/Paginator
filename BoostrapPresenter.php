@@ -1,24 +1,23 @@
 <?php
 
-class BoostrapPresenter implements Presenter
+class BoostrapPresenter extends AbstractPresenter
 {
-    protected $nav;
-    function __construct($nav)
+    function __construct(Paginator $paginator)
     {
-        $this->nav = $nav;
+        $this->paginator = $paginator;
     }
 
     function start(): string
     {
         return '<li class="page-item">
-        <a class="page-link" href="?page=1">First</a>
+        <a class="page-link" href="?page=' . $this->firstPage() . '">First</a>
         </li>';
     }
 
     function previous(): string
     {
         return '<li class="page-item">
-        <a class="page-link" href="?page=' . ($this->nav->getCurrentPage() - 1) . '">Previous</a>
+        <a class="page-link" href="?page=' . $this->previousPage() . '">Previous</a>
         </li>';
     }
 
@@ -40,14 +39,14 @@ class BoostrapPresenter implements Presenter
     function next(): string
     {
         return '<li class="page-item">
-        <a class="page-link" href="?page=' . ($this->nav->getCurrentPage() + 1) . '">Next</a>
+        <a class="page-link" href="?page=' . $this->nextPage() . '">Next</a>
         </li>';
     }
 
     function last(): string
     {
         return '<li class="page-item">
-        <a class="page-link" href="?page=' . $this->nav->getNbPage() . '">Last</a>
+        <a class="page-link" href="?page=' . $this->lastPage() . '">Last</a>
         </li>';
     }
 

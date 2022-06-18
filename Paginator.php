@@ -55,6 +55,22 @@ class Paginator
         return $this->nbPage;
     }
 
+    public function firstPage() :int {
+        return 1;
+    }
+
+    public function previousPage() :int {
+        return ($this->getCurrentPage() - 1);
+    }
+
+    public function nextPage() :int {
+        return ($this->getCurrentPage() + 1);
+    }
+
+    public function lastPage() :int {
+        return  $this->getNbPage(); 
+    }
+
     public function setPresenterClass(string $presenterClass): Paginator
     {
         $this->presenterClass = $presenterClass;
