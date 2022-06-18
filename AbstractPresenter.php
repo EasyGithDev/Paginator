@@ -19,6 +19,9 @@ abstract class AbstractPresenter implements Presenter
             case 'lastPage':
                 return $this->paginator->lastPage();
                 break;
+            case 'requestParameter':
+                return $this->paginator->getRequestParameter();
+                break;
         }
     }
 

@@ -37,12 +37,16 @@ class Paginator
     /** Display type */
     protected $displayType;
 
+    protected $requestFunction;
+    protected $requestParameter;
+
     function __construct(int $nbResults, int $resultsPerPage = 10)
     {
         $this->nbResults = $nbResults;
         $this->resultsPerPage = $resultsPerPage;
         $this->presenterClass = DefaultPresenter::class;
         $this->displayType = self::DISPLAY_ALL;
+        $this->requestParameter = 'page';
     }
 
     public function getCurrentPage(): int
@@ -55,20 +59,42 @@ class Paginator
         return $this->nbPage;
     }
 
-    public function firstPage() :int {
+    public function getRequestParameter(): string
+    {
+        return $this->requestParameter;
+    }
+
+
+    public function firstPage(): int
+    {
         return 1;
     }
 
-    public function previousPage() :int {
+    public function previousPage(): int
+    {
         return ($this->getCurrentPage() - 1);
     }
 
-    public function nextPage() :int {
+    public function nextPage(): int
+    {
         return ($this->getCurrentPage() + 1);
     }
 
-    public function lastPage() :int {
-        return  $this->getNbPage(); 
+    public function lastPage(): int
+    {
+        return  $this->getNbPage();
+    }
+
+    public function setRequestParameter(string $requestParameter): Paginator
+    {
+        $this->requestParameter = $requestParameter;
+        return $this;
+    }
+
+    public function setRequestFunction(string $requestFunction): Paginator
+    {
+        $this->requestFunction = $requestFunction;
+        return $this;
     }
 
     public function setPresenterClass(string $presenterClass): Paginator
@@ -109,9 +135,20 @@ class Paginator
         return false;
     }
 
+    protected function defaultRequestFunction()
+    {
+        return filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT);
+    }
+
     protected function computeCurrentPage()
     {
-        $currentPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT);
+
+        if (!is_null($this->requestFunction)) {
+            $currentPage = call_user_func($this->requestFunction);
+        } else {
+            $currentPage = $this->defaultRequestFunction();
+        }
+
         $this->currentPage = ($currentPage) ? $currentPage : 1;
     }
 

@@ -10,14 +10,14 @@ class BoostrapPresenter extends AbstractPresenter
     function start(): string
     {
         return '<li class="page-item">
-        <a class="page-link" href="?page=' . $this->firstPage() . '">First</a>
+        <a class="page-link" href="?'.$this->requestParameter().'=' . $this->firstPage() . '">First</a>
         </li>';
     }
 
     function previous(): string
     {
         return '<li class="page-item">
-        <a class="page-link" href="?page=' . $this->previousPage() . '">Previous</a>
+        <a class="page-link" href="?'.$this->requestParameter().'=' . $this->previousPage() . '">Previous</a>
         </li>';
     }
 
@@ -25,7 +25,7 @@ class BoostrapPresenter extends AbstractPresenter
     {
 
         return '<li class="page-item">
-        <a class="page-link" href="?page=' . $i . '">' . $i . '</a>
+        <a class="page-link" href="?'.$this->requestParameter().'=' . $i . '">' . $i . '</a>
         </li>';
     }
 
@@ -39,14 +39,14 @@ class BoostrapPresenter extends AbstractPresenter
     function next(): string
     {
         return '<li class="page-item">
-        <a class="page-link" href="?page=' . $this->nextPage() . '">Next</a>
+        <a class="page-link" href="?'.$this->requestParameter().'=' . $this->nextPage() . '">Next</a>
         </li>';
     }
 
     function last(): string
     {
         return '<li class="page-item">
-        <a class="page-link" href="?page=' . $this->lastPage() . '">Last</a>
+        <a class="page-link" href="?'.$this->requestParameter().'=' . $this->lastPage() . '">Last</a>
         </li>';
     }
 
