@@ -1,9 +1,6 @@
 <?php
 
-require 'DefaultPresenter.php';
-require 'BoostrapPresenter.php';
-
-class Pagination
+class Paginator
 {
 
     /**
@@ -58,7 +55,7 @@ class Pagination
         return $this->nbPage;
     }
 
-    public function setPresenterClass(string $presenterClass): Pagination
+    public function setPresenterClass(string $presenterClass): Paginator
     {
         $this->presenterClass = $presenterClass;
         return $this;
@@ -70,7 +67,7 @@ class Pagination
         return $this;
     }
 
-    public function applyPresenter(): Pagination
+    public function applyPresenter(): Paginator
     {
         $this->presenter = new $this->presenterClass($this);
         return $this;

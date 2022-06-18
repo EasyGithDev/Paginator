@@ -1,6 +1,9 @@
 <?php
-require 'Pagination.php';
-$nav = new Pagination(100);
+require __DIR__ . '/../autoload.php';
+
+$nav = new Paginator(100);
+$nav->setPresenterClass(BoostrapPresenter::class)
+    ->setDisplay(Paginator::DISPLAY_FIRST_LAST | Paginator::DISPLAY_LIST);
 ?>
 <html>
 
@@ -11,15 +14,8 @@ $nav = new Pagination(100);
 
 <body>
 
+    <?= $nav ?>
+
 </body>
-<?= $nav ?>
-
-<?php
-$nav->setPresenterClass(BoostrapPresenter::class)
-    ->setDisplay(Pagination::DISPLAY_FIRST_LAST | Pagination::DISPLAY_LIST)
-    ->applyPresenter();
-?>
-
-<?= $nav ?>
 
 </html>

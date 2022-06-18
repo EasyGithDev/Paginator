@@ -1,6 +1,6 @@
 <?php
 
-class BoostrapPresenter
+class BoostrapPresenter implements Presenter
 {
     protected $nav;
     function __construct($nav)

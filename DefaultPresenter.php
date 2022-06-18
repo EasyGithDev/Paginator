@@ -1,6 +1,6 @@
 <?php
 
-class DefaultPresenter
+class DefaultPresenter implements Presenter
 {
     protected $nav;
     function __construct($nav)
