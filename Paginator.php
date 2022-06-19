@@ -51,7 +51,14 @@ class Paginator
         $this->presenterClass = DefaultPresenter::class;
         $this->displayType = self::DISPLAY_ALL;
         $this->requestParameter = 'page';
+
+        $this->computeCurrentPage();
+        $this->computeNbPage();
     }
+
+    //////////////////////////////////////////////////////
+    // Getter / Setter section
+    //////////////////////////////////////////////////////
 
     public function getCurrentPage(): int
     {
@@ -113,11 +120,15 @@ class Paginator
         return $this;
     }
 
-    public function setDisplay(int $display)
+    public function setDisplayType(int $displayType)
     {
-        $this->displayType = $display;
+        $this->displayType = $displayType;
         return $this;
     }
+
+    //////////////////////////////////////////////////////
+    // Presenter section
+    //////////////////////////////////////////////////////
 
     public function applyPresenter(): Paginator
     {
@@ -145,18 +156,21 @@ class Paginator
         return false;
     }
 
-    protected function defaultRequestFunction()
+    //////////////////////////////////////////////////////
+    // Compute section
+    //////////////////////////////////////////////////////
+
+    protected function computeRequestPage()
     {
         return filter_input(INPUT_GET, $this->requestParameter, FILTER_VALIDATE_INT);
     }
 
     protected function computeCurrentPage()
     {
-
         if (!is_null($this->requestFunction)) {
             $currentPage = call_user_func($this->requestFunction);
         } else {
-            $currentPage = $this->defaultRequestFunction();
+            $currentPage = $this->computeRequestPage();
         }
 
         $this->currentPage = ($currentPage) ? $currentPage : 1;
@@ -167,14 +181,55 @@ class Paginator
         $this->nbPage = $this->nbResults / $this->resultsPerPage;
     }
 
+    //////////////////////////////////////////////////////
+    // Display section
+    //////////////////////////////////////////////////////
+
+    function displayFisrt(): string
+    {
+        return  $this->presenter->first();
+    }
+
+    function displayPrevious(): string
+    {
+        return $this->presenter->previous();
+    }
+
+    function displayList(): string
+    {
+        $strNav = '';
+        $start = 1;
+        $end = $this->nbPage;
+        if (!is_null($this->maxPageToDisplay)) {
+            $start = ($this->currentPage > $this->maxPageToDisplay) ? ($this->currentPage - $this->maxPageToDisplay + 1) : 1;
+            $end = ($this->maxPageToDisplay < $this->nbPage) ? ($start + $this->maxPageToDisplay - 1) : $this->nbPage;
+        }
+
+        for ($i = $start; $i <= $end; $i++) {
+            if ($i == $this->currentPage) {
+                $strNav .= $this->presenter->listDisabled($i);
+            } else {
+                $strNav .= $this->presenter->listEnabled($i);
+            }
+        }
+        return $strNav;
+    }
+
+    function displayNext(): string
+    {
+        return $this->presenter->next();
+    }
+
+    function displayLast(): string
+    {
+        return $this->presenter->last();
+    }
+
     function __toString(): string
     {
         if (!$this->presenter) {
             $this->applyPresenter();
         }
-
-        $this->computeCurrentPage();
-        $this->computeNbPage();
 
         $strNav = '';
 
@@ -188,24 +243,9 @@ class Paginator
             $strNav .= $this->presenter->previous();
         }
 
-
         // list
         if ($this->checkDisplay(self::DISPLAY_LIST)) {
-
-            $start = 1;
-            $end = $this->nbPage;
-            if (!is_null($this->maxPageToDisplay)) {
-                $start = ($this->currentPage > $this->maxPageToDisplay) ? ($this->currentPage - $this->maxPageToDisplay + 1) : 1;
-                $end = ($this->maxPageToDisplay < $this->nbPage) ? ($start + $this->maxPageToDisplay - 1) : $this->nbPage;
-            }
-
-            for ($i = $start; $i <= $end; $i++) {
-                if ($i == $this->currentPage) {
-                    $strNav .= $this->presenter->listDisabled($i);
-                } else {
-                    $strNav .= $this->presenter->listEnabled($i);
-                }
-            }
+            $strNav .= $this->displayList();
         }
 
         // next
