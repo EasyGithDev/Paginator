@@ -178,18 +178,16 @@ class Paginator
 
         $strNav = '';
 
-        // User is on the first page
-        if ($this->currentPage > 1) {
-            // start
-            if ($this->checkDisplay(self::DISPLAY_FIRST)) {
-                $strNav .= $this->presenter->start();
-            }
-
-            // previous
-            if ($this->checkDisplay(self::DISPLAY_PREV)) {
-                $strNav .= $this->presenter->previous();
-            }
+        // start
+        if ($this->checkDisplay(self::DISPLAY_FIRST)) {
+            $strNav .= $this->presenter->first();
         }
+
+        // previous
+        if ($this->checkDisplay(self::DISPLAY_PREV)) {
+            $strNav .= $this->presenter->previous();
+        }
+
 
         // list
         if ($this->checkDisplay(self::DISPLAY_LIST)) {
@@ -210,16 +208,13 @@ class Paginator
             }
         }
 
-        // User is on the last page
-        if ($this->currentPage < $this->nbPage) {
-            // next
-            if ($this->checkDisplay(self::DISPLAY_NEXT)) {
-                $strNav .= $this->presenter->next();
-            }
-            // last
-            if ($this->checkDisplay(self::DISPLAY_LAST)) {
-                $strNav .= $this->presenter->last();
-            }
+        // next
+        if ($this->checkDisplay(self::DISPLAY_NEXT)) {
+            $strNav .= $this->presenter->next();
+        }
+        // last
+        if ($this->checkDisplay(self::DISPLAY_LAST)) {
+            $strNav .= $this->presenter->last();
         }
 
         return $this->presenter->embed($strNav);

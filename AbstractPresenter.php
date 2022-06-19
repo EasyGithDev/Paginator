@@ -6,7 +6,14 @@ abstract class AbstractPresenter implements Presenter
 
     function __call($name, $arguments)
     {
+        // echo $name, '<br>';
         switch ($name) {
+            case 'currentPage':
+                return $this->paginator->getCurrentPage();
+                break;
+            case 'nbPage':
+                return $this->paginator->getNbPage();
+                break;
             case 'firstPage':
                 return $this->paginator->firstPage();
                 break;
