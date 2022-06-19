@@ -2,7 +2,7 @@
 
 interface Presenter
 {
-    function start(): string;
+    function first(): string;
     function previous(): string;
     function listEnabled(int $index): string;
     function listDisabled(int $index): string;

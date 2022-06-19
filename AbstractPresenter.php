@@ -25,7 +25,7 @@ abstract class AbstractPresenter implements Presenter
         }
     }
 
-    abstract function start(): string;
+    abstract function first(): string;
 
     abstract function previous(): string;
 

@@ -8,7 +8,7 @@ class DefaultPresenter implements Presenter
         $this->nav = $nav;
     }
 
-    function start(): string
+    function first(): string
     {
         return  '<a href="?page=1">&lt;&lt;</a>&nbsp;';
     }
