@@ -1,4 +1,5 @@
 <?php
+
 namespace EasyGithDev\Paginator;
 
 class Paginator
@@ -16,6 +17,11 @@ class Paginator
     const DISPLAY_FIRST_LAST = self::DISPLAY_FIRST | self::DISPLAY_LAST;
     const DISPLAY_PREV_NEXT = self::DISPLAY_PREV | self::DISPLAY_NEXT;
     const DISPLAY_ALL = self::DISPLAY_FIRST_LAST | self::DISPLAY_PREV_NEXT | self::DISPLAY_LIST;
+
+    /**
+     * Default request parameter
+     */
+    const REQUEST_PARAMETER = 'page';
 
     /**
      * Presenter
@@ -51,74 +57,74 @@ class Paginator
         $this->resultsPerPage = $resultsPerPage;
         $this->presenterClass = DefaultPresenter::class;
         $this->displayType = self::DISPLAY_ALL;
-        $this->requestParameter = 'page';
+        $this->requestParameter = self::REQUEST_PARAMETER;
     }
 
     //////////////////////////////////////////////////////
     // Getter / Setter section
     //////////////////////////////////////////////////////
 
-    public function getCurrentPage(): int
+    function getCurrentPage(): int
     {
         return $this->currentPage;
     }
 
-    public function getNbPage(): int
+    function getNbPage(): int
     {
         return $this->nbPage;
     }
 
-    public function getRequestParameter(): string
+    function getRequestParameter(): string
     {
         return $this->requestParameter;
     }
 
 
-    public function firstPage(): int
+    function firstPage(): int
     {
         return 1;
     }
 
-    public function previousPage(): int
+    function previousPage(): int
     {
         return ($this->getCurrentPage() - 1);
     }
 
-    public function nextPage(): int
+    function nextPage(): int
     {
         return ($this->getCurrentPage() + 1);
     }
 
-    public function lastPage(): int
+    function lastPage(): int
     {
         return  $this->getNbPage();
     }
 
-    public function setMaxPageToDisplay(int $maxPageToDisplay): Paginator
+    function setMaxPageToDisplay(int $maxPageToDisplay): Paginator
     {
         $this->maxPageToDisplay = $maxPageToDisplay;
         return $this;
     }
 
-    public function setRequestParameter(string $requestParameter): Paginator
+    function setRequestParameter(string $requestParameter): Paginator
     {
         $this->requestParameter = $requestParameter;
         return $this;
     }
 
-    public function setRequestFunction(string $requestFunction): Paginator
+    function setRequestFunction(string $requestFunction): Paginator
     {
         $this->requestFunction = $requestFunction;
         return $this;
     }
 
-    public function setPresenterClass(string $presenterClass): Paginator
+    function setPresenterClass(string $presenterClass): Paginator
     {
         $this->presenterClass = $presenterClass;
         return $this;
     }
 
-    public function setDisplayType(int $displayType)
+    function setDisplayType(int $displayType): Paginator
     {
         $this->displayType = $displayType;
         return $this;
@@ -128,7 +134,7 @@ class Paginator
     // Presenter section
     //////////////////////////////////////////////////////
 
-    public function applyPresenter(): Paginator
+    function applyPresenter(): Paginator
     {
         $this->presenter = new $this->presenterClass($this);
         return $this;
@@ -158,12 +164,12 @@ class Paginator
     // Compute section
     //////////////////////////////////////////////////////
 
-    protected function computeRequestPage()
+    protected function computeRequestPage(): mixed
     {
         return filter_input(INPUT_GET, $this->requestParameter, FILTER_VALIDATE_INT);
     }
 
-    protected function computeCurrentPage()
+    protected function computeCurrentPage(): void
     {
         if (!is_null($this->requestFunction)) {
             $currentPage = call_user_func($this->requestFunction);
@@ -174,7 +180,7 @@ class Paginator
         $this->currentPage = ($currentPage) ? $currentPage : 1;
     }
 
-    protected function computeNbPage()
+    protected function computeNbPage(): void
     {
         $this->nbPage = $this->nbResults / $this->resultsPerPage;
     }
