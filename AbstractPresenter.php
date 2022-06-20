@@ -1,4 +1,5 @@
 <?php
+namespace EasyGithDev\Paginator;
 
 abstract class AbstractPresenter implements Presenter
 {

@@ -1,6 +1,9 @@
 <?php
 require __DIR__ . '/../autoload.php';
 
+use EasyGithDev\Paginator\Paginator as Paginator;
+use EasyGithDev\Paginator\BoostrapPresenter as BoostrapPresenter;
+
 $nav = new Paginator(100);
 $nav->setPresenterClass(BoostrapPresenter::class)
     ->setMaxPageToDisplay(3);

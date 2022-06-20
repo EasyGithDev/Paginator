@@ -1,4 +1,5 @@
 <?php
+namespace EasyGithDev\Paginator;
 
 interface Presenter
 {
