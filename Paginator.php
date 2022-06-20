@@ -52,9 +52,6 @@ class Paginator
         $this->presenterClass = DefaultPresenter::class;
         $this->displayType = self::DISPLAY_ALL;
         $this->requestParameter = 'page';
-
-        $this->computeCurrentPage();
-        $this->computeNbPage();
     }
 
     //////////////////////////////////////////////////////
@@ -231,6 +228,9 @@ class Paginator
         if (!$this->presenter) {
             $this->applyPresenter();
         }
+
+        $this->computeCurrentPage();
+        $this->computeNbPage();
 
         $strNav = '';
 

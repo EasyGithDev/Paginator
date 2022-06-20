@@ -38,6 +38,25 @@ $nav->setPresenterClass(BoostrapPresenter::class);
             </div>
 
             <?php
+            $nav->setDisplayType(Paginator::DISPLAY_LIST | Paginator::DISPLAY_FIRST_LAST);
+            ?>
+
+            <div class="row align-items-center">
+
+                <h3>Paginator::DISPLAY_LIST|Paginator::DISPLAY_FIRST_LAST</h3>
+
+                <div class="col">
+                    <?= $nav ?>
+                </div>
+                <div class="col">
+                    <?= $nav->getCurrentPage() ?>
+                    /
+                    <?= $nav->getNbPage() ?>&nbsp;
+                    pages
+                </div>
+            </div>
+
+            <?php
             $nav->setDisplayType(Paginator::DISPLAY_LIST);
             ?>
 
