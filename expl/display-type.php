@@ -5,38 +5,97 @@ use EasyGithDev\Paginator\Paginator as Paginator;
 use EasyGithDev\Paginator\BoostrapPresenter as BoostrapPresenter;
 
 $nav = new Paginator(100);
-$nav->setPresenterClass(BoostrapPresenter::class)
-    ->setDisplayType(Paginator::DISPLAY_FIRST_LAST | Paginator::DISPLAY_PREV_NEXT);
+$nav->setPresenterClass(BoostrapPresenter::class);
 ?>
 <html>
 
 <head>
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <style>
-        body {
-            width: 80%;
-            margin: 0px auto;
-            /* border: solid 1px #000; */
-        }
-    </style>
 </head>
 
-<body>
+<body class="d-flex h-100 text-center">
 
-    <div class="container d-flex justify-content-center"">
-        <div class="row align-items-center">
+    <div class="container d-flex w-100 h-100 p-3 mx-auto flex-column">
 
-        <div class="col">
-            <?= $nav ?>
-        </div>
-        <div class="col">
-            <?= $nav->getCurrentPage() ?>
-            /
-            <?= $nav->getNbPage() ?>&nbsp;
-            pages
-        </div>
-    </div>
+
+        <main class="px-3">
+            <h1>Display Type</h1>
+
+            <div class="row align-items-center">
+
+                <h3>Paginator::ALL</h3>
+
+                <div class="col">
+                    <?= $nav ?>
+                </div>
+                <div class="col">
+                    <?= $nav->getCurrentPage() ?>
+                    /
+                    <?= $nav->getNbPage() ?>&nbsp;
+                    pages
+                </div>
+            </div>
+
+            <?php
+            $nav->setDisplayType(Paginator::DISPLAY_LIST);
+            ?>
+
+            <div class="row align-items-center">
+
+                <h3>Paginator::DISPLAY_LIST</h3>
+
+                <div class="col">
+                    <?= $nav ?>
+                </div>
+                <div class="col">
+                    <?= $nav->getCurrentPage() ?>
+                    /
+                    <?= $nav->getNbPage() ?>&nbsp;
+                    pages
+                </div>
+            </div>
+
+            <?php
+            $nav->setDisplayType(Paginator::DISPLAY_FIRST_LAST | Paginator::DISPLAY_PREV_NEXT);
+            ?>
+
+            <div class="row align-items-center">
+
+                <h3>Paginator::DISPLAY_FIRST_LAST | Paginator::DISPLAY_PREV_NEXT</h3>
+
+                <div class="col">
+                    <?= $nav ?>
+                </div>
+                <div class="col">
+                    <?= $nav->getCurrentPage() ?>
+                    /
+                    <?= $nav->getNbPage() ?>&nbsp;
+                    pages
+                </div>
+            </div>
+
+            <?php
+            $nav->setDisplayType(Paginator::DISPLAY_PREV_NEXT);
+            ?>
+
+            <div class="row align-items-center">
+
+                <h3>Paginator::DISPLAY_PREV_NEXT</h3>
+
+                <div class="col">
+                    <?= $nav ?>
+                </div>
+                <div class="col">
+                    <?= $nav->getCurrentPage() ?>
+                    /
+                    <?= $nav->getNbPage() ?>&nbsp;
+                    pages
+                </div>
+            </div>
+
+        </main>
+
     </div>
 
 </body>
