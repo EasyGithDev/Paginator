@@ -2,7 +2,7 @@
 require __DIR__ . '/../autoload.php';
 
 use EasyGithDev\Paginator\Paginator as Paginator;
-use EasyGithDev\Paginator\BoostrapPresenter as BoostrapPresenter;
+use EasyGithDev\Paginator\BootstrapPresenter as BootstrapPresenter;
 
 // Define your own function to get the page parameter
 function request()
@@ -11,7 +11,7 @@ function request()
 }
 
 $nav = new Paginator(100);
-$nav->setPresenterClass(BoostrapPresenter::class)
+$nav->setPresenterClass(BootstrapPresenter::class)
     ->setRequestFunction('request')
     ->setRequestParameter('p');
 

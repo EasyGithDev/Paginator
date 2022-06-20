@@ -1,6 +1,7 @@
 <?php
 require __DIR__ . '/../autoload.php';
 
+use EasyGithDev\Paginator\BootstrapPresenter;
 use EasyGithDev\Paginator\Paginator as Paginator;
 use EasyGithDev\Paginator\DataPresenter as DataPresenter;
 
@@ -23,7 +24,7 @@ $offset = isset($_GET['page']) ? intval($_GET['page']) * $limit : 0;
 $query = 'SELECT * from communes LIMIT ' . $offset . ',' . $limit;
 
 $nav = new Paginator($count, $limit);
-$nav->setPresenterClass(DataPresenter::class)
+$nav->setPresenterClass(BootstrapPresenter::class)
     ->setMaxPageToDisplay(5);
 
 ?>
@@ -40,7 +41,7 @@ $nav->setPresenterClass(DataPresenter::class)
 
         <main class="px-3">
 
-            <h1>Data Presenter</h1>
+            <h1>Using Data</h1>
 
             <div class="row">
                 <div class="col">

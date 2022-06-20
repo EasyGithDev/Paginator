@@ -2,10 +2,10 @@
 require __DIR__ . '/../autoload.php';
 
 use EasyGithDev\Paginator\Paginator as Paginator;
-use EasyGithDev\Paginator\BoostrapPresenter as BoostrapPresenter;
+use EasyGithDev\Paginator\BootstrapPresenter as BootstrapPresenter;
 
 $nav = new Paginator(100);
-$nav->setPresenterClass(BoostrapPresenter::class);
+$nav->setPresenterClass(BootstrapPresenter::class);
 ?>
 <html>
 

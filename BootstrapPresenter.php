@@ -1,7 +1,8 @@
 <?php
+
 namespace EasyGithDev\Paginator;
 
-class DataPresenter extends AbstractPresenter
+class BootstrapPresenter extends AbstractPresenter
 {
     function __construct(Paginator $paginator)
     {
