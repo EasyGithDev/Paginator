@@ -183,7 +183,7 @@ class Paginator
     // Display section
     //////////////////////////////////////////////////////
 
-    function displayFisrt(): string
+    function displayFirst(): string
     {
         return  $this->presenter->first();
     }
@@ -236,12 +236,12 @@ class Paginator
 
         // start
         if ($this->checkDisplay(self::DISPLAY_FIRST)) {
-            $strNav .= $this->presenter->first();
+            $strNav .= $this->displayFirst();
         }
 
         // previous
         if ($this->checkDisplay(self::DISPLAY_PREV)) {
-            $strNav .= $this->presenter->previous();
+            $strNav .= $this->displayPrevious();
         }
 
         // list
@@ -251,11 +251,11 @@ class Paginator
 
         // next
         if ($this->checkDisplay(self::DISPLAY_NEXT)) {
-            $strNav .= $this->presenter->next();
+            $strNav .= $this->displayNext();
         }
         // last
         if ($this->checkDisplay(self::DISPLAY_LAST)) {
-            $strNav .= $this->presenter->last();
+            $strNav .= $this->displayLast();
         }
 
         return $this->presenter->embed($strNav);
